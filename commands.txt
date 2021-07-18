@@ -1,4 +1,7 @@
-title
+title 
 taskkill /f /im spotify.exe
 taskkill /f /im steam.exe
 taskkill /f /im EpicGamesLauncher.exe
+type commands.txt
+cleanmgr /sagerun:1
+rmdir /s %systemdrive%\$Recycle.bin
