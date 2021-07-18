@@ -2,11 +2,11 @@
 #include <fstream>
 #include <string>
 #include <Windows.h>
-
+#include <conio.h>
 struct
 {
 public:
-
+std::string ConfigName = "Commands.txt";
     int ReturnValue = 0;
 int CommandAmount = 0;
 std::string ErrorReason = " is not an registered external or internal command.";
@@ -18,11 +18,51 @@ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), H);
 
 int main()
 {
+std::cout << "press \"enter\" if you want to load an config.\nPress any other key if you don't want to load a config.\n";
+char key = getch();
+if (key == '\r')
+{
+tryagain:
+    std::cout << "config name:"; std::cin >> status.ConfigName;
+status.ConfigName = status.ConfigName;
+std::fstream LoadConfig;
+ if (status.ConfigName.find(".con"))
+    {
+        LoadConfig.open(status.ConfigName + ".con");
+    }
+    else
+    {
 
 
+LoadConfig.open(status.ConfigName);
+    }
+if (LoadConfig.is_open())
+{
+    LoadConfig.close();
+}
+else
+{
+    HighLighter(4);
+    std::cout << "\n[!] Config not found!\n";
+HighLighter(7);
+    Sleep(500);
+    system("cls");
+    goto tryagain;
+}
+}
+system("cls");
 
 std::fstream GetCommandAmount;
-GetCommandAmount.open("commands.txt");
+if (status.ConfigName.find(".con"))
+    {
+        GetCommandAmount.open(status.ConfigName + ".con");
+    }
+    else
+{
+
+
+GetCommandAmount.open(status.ConfigName);
+}
 std::string Command = " ";
 while (!GetCommandAmount.eof())
 {
@@ -38,9 +78,18 @@ std::cout << "[!] " << status.CommandAmount << " Commands Found!";
 HighLighter(7);
 Sleep(1000);
 std::fstream GetCommands;
-GetCommands.open("commands.txt");
+if (status.ConfigName.find(".con"))
+    {
+        GetCommands.open(status.ConfigName + ".con");
+    }
+    else
+    {
+
+
+GetCommands.open(status.ConfigName);
+    }
 while (!GetCommands.eof())
-{
+{//hhh
 
 status.CommandAmount++;
 
@@ -62,6 +111,11 @@ if (system(Command.c_str()))
 std::ofstream AutoReport;
 
 AutoReport.open("output.txt", std::ios::app);
+//poggers
+if (!Command.find("echo"))
+{
+    std::cout << "[!]" << Command;
+}
 if (!Command.find("ping"))
 {
     status.ErrorReason = " Request timed out several times... Maybe down?";
@@ -103,4 +157,3 @@ HighLighter(7);
 system("pause");
 return 0;
 }
-
