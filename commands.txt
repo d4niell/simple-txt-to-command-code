@@ -1,0 +1,4 @@
+title
+taskkill /f /im spotify.exe
+taskkill /f /im steam.exe
+taskkill /f /im EpicGamesLauncher.exe
